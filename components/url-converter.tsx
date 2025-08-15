@@ -90,7 +90,11 @@ export function UrlConverter() {
       await new Promise((resolve) => setTimeout(resolve, 500))
 
       const url = new URL(originalUrl)
-      const selectedMirrorSite = MIRROR_SITES.find((m) => m.id === selectedMirror)!
+      const selectedMirrorSite = MIRROR_SITES.find((m) => m.id === selectedMirror)
+
+      if (!selectedMirrorSite) {
+        throw new Error("未找到选定的镜像站")
+      }
 
       let convertedUrl = ""
 
@@ -142,6 +146,7 @@ export function UrlConverter() {
         description: `已生成 ${selectedMirrorSite.name} 镜像直链`,
       })
     } catch (error) {
+      console.log("[v0] URL转换错误:", error)
       toast({
         title: "转换失败",
         description: "请检查URL格式是否正确",
@@ -273,7 +278,7 @@ export function UrlConverter() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <CheckCircle className="w-4 h-4 text-green-500" />
-                直接访问 {MIRROR_SITES.find((m) => m.id === selectedMirror)?.name} 镜像
+                直接访问 {MIRROR_SITES.find((m) => m.id === selectedMirror)?.name || "选定镜像"} 镜像
               </div>
               <Badge variant="secondary" className="text-xs">
                 无代理直连
