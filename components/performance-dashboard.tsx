@@ -30,7 +30,7 @@ import {
   ResponsiveContainer,
 } from "recharts"
 
-const API_BASE_URL = "https://sourceforge-proxy.zysord.workers.dev"
+const API_BASE_URL = "https://sf-mirror-api.sord.top"
 
 interface StatsData {
   requests_today: number

@@ -12,7 +12,7 @@ import { useToast } from "@/hooks/use-toast"
 
 const MIRROR_SITES = [
   {
-    id: "CloudFlare",
+    id: "cloudflare",
     name: "CloudFlare (推荐)",
     domain: "sf-proxy-api.sord.top",
     description: "CF-Workers镜像站，最稳定",
@@ -46,7 +46,7 @@ export function UrlConverter() {
   const [mirrorUrl, setMirrorUrl] = useState("")
   const [isConverting, setIsConverting] = useState(false)
   const [isValidUrl, setIsValidUrl] = useState(true)
-  const [selectedMirror, setSelectedMirror] = useState("master")
+  const [selectedMirror, setSelectedMirror] = useState("cloudflare")
   const { toast } = useToast()
 
   // SourceForge URL validation
@@ -92,29 +92,49 @@ export function UrlConverter() {
       const url = new URL(originalUrl)
       const selectedMirrorSite = MIRROR_SITES.find((m) => m.id === selectedMirror)!
 
-      // Convert SourceForge URL to mirror URL
-      // From: https://sourceforge.net/projects/PROJECT/files/PATH/FILE/download
-      // To: https://MIRROR.dl.sourceforge.net/project/PROJECT/PATH/FILE?viasf=1
+      let convertedUrl = ""
 
-      let mirrorPath = ""
-
-      if (url.pathname.includes("/projects/") && url.pathname.includes("/files/")) {
-        // Extract project name and file path
-        const pathMatch = url.pathname.match(/\/projects\/([^/]+)\/files\/(.+?)(?:\/download)?$/)
-        if (pathMatch) {
-          const [, projectName, filePath] = pathMatch
-          mirrorPath = `/project/${projectName}/${filePath}`
+      if (selectedMirror === "cloudflare") {
+        if (url.pathname.includes("/projects/") && url.pathname.includes("/files/")) {
+          // Extract the full path after /projects/
+          const pathMatch = url.pathname.match(/\/projects\/(.+)/)
+          if (pathMatch) {
+            const projectPath = pathMatch[1]
+            // Remove trailing /download if exists, then add it back
+            const cleanPath = projectPath.replace(/\/download$/, "")
+            convertedUrl = `https://${selectedMirrorSite.domain}/projects/${cleanPath}/download`
+          }
         }
-      } else if (url.hostname.includes("downloads.sourceforge.net") && url.pathname.startsWith("/project/")) {
-        // Already in project format
-        mirrorPath = url.pathname
+      } else {
+        // Convert SourceForge URL to mirror URL
+        // From: https://sourceforge.net/projects/PROJECT/files/PATH/FILE/download
+        // To: https://MIRROR.dl.sourceforge.net/project/PROJECT/PATH/FILE?viasf=1
+
+        let mirrorPath = ""
+
+        if (url.pathname.includes("/projects/") && url.pathname.includes("/files/")) {
+          // Extract project name and file path
+          const pathMatch = url.pathname.match(/\/projects\/([^/]+)\/files\/(.+?)(?:\/download)?$/)
+          if (pathMatch) {
+            const [, projectName, filePath] = pathMatch
+            mirrorPath = `/project/${projectName}/${filePath}`
+          }
+        } else if (url.hostname.includes("downloads.sourceforge.net") && url.pathname.startsWith("/project/")) {
+          // Already in project format
+          mirrorPath = url.pathname
+        }
+
+        if (!mirrorPath) {
+          throw new Error("无法解析URL格式")
+        }
+
+        convertedUrl = `https://${selectedMirrorSite.domain}${mirrorPath}?viasf=1`
       }
 
-      if (!mirrorPath) {
-        throw new Error("无法解析URL格式")
+      if (!convertedUrl) {
+        throw new Error("无法生成镜像链接")
       }
 
-      const convertedUrl = `https://${selectedMirrorSite.domain}${mirrorPath}?viasf=1`
       setMirrorUrl(convertedUrl)
 
       toast({
