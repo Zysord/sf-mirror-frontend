@@ -34,28 +34,28 @@
 ### 本地开发
 
 1. **克隆项目**
-\`\`\`bash
+```bash
 git clone https://github.com/Zysord/sf-mirror-frontend.git
 cd sf-mirror-frontend
-\`\`\`
+```
 
 2. **安装依赖**
-\`\`\`bash
+```bash
 npm install
-# 或
+或
 yarn install
-# 或
+或
 pnpm install
-\`\`\`
+```
 
 3. **启动开发服务器**
-\`\`\`bash
+```bash
 npm run dev
 # 或
 yarn dev
 # 或
 pnpm dev
-\`\`\`
+```
 
 4. **访问应用**
 打开 [http://localhost:3000](http://localhost:3000) 查看应用
@@ -72,7 +72,7 @@ pnpm dev
    - 自动检测 Next.js 项目并部署
 
 2. **手动部署**
-\`\`\`bash
+```bash
 # 安装 Vercel CLI
 npm i -g vercel
 
@@ -81,7 +81,7 @@ vercel
 
 # 生产环境部署
 vercel --prod
-\`\`\`
+```
 
 ### CloudFlare Pages 部署
 
@@ -96,9 +96,9 @@ vercel --prod
    - **Node.js 版本**: 18
 
 3. **环境变量**
-\`\`\`bash
+```bash
 NEXT_PUBLIC_SITE_URL=https://your-domain.pages.dev
-\`\`\`
+```
 
 ### Netlify 部署
 
@@ -112,7 +112,7 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.pages.dev
    - **Node.js 版本**: 18
 
 3. **添加 netlify.toml**
-\`\`\`toml
+```toml
 [build]
   command = "npm run build"
   publish = ".next"
@@ -124,7 +124,7 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.pages.dev
   from = "/*"
   to = "/index.html"
   status = 200
-\`\`\`
+```
 
 ## 📝 使用说明
 
@@ -137,9 +137,9 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.pages.dev
 
 ### 支持的链接格式
 
-\`\`\`
+```
 https://sourceforge.net/projects/PROJECT/files/PATH/FILE/download
-\`\`\`
+```
 
 ### 镜像站选择
 
