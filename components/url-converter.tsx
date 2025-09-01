@@ -23,21 +23,21 @@ const MIRROR_SITES = [
     name: "Liquid Telecom (SourceForge官方）",
     domain: "liquidtelecom.dl.sourceforge.net",
     description: "非洲/欧洲优化",
-    reliability: "95%",
+    reliability: "99.9%",
   },
   {
     id: "netactuate",
     name: "NetActuate (SourceForge官方）",
     domain: "netactuate.dl.sourceforge.net",
     description: "北美优化",
-    reliability: "95%",
+    reliability: "99.9%",
   },
   {
     id: "pilotfiber",
     name: "Pilot Fiber (SourceForge官方）",
     domain: "pilotfiber.dl.sourceforge.net",
     description: "亚太优化",
-    reliability: "95%",
+    reliability: "99.9%",
   },
 ]
 

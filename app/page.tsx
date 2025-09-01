@@ -1,42 +1,22 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Zap, Globe, Shield, ArrowRight, BarChart3 } from "lucide-react"
-import { UrlConverter } from "@/components/url-converter"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Globe, Zap } from "lucide-react"
 import Link from "next/link"
+import { UrlConverter } from "@/components/url-converter"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
+    <main>
+      {/* 顶部导航 */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Zap className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <h1 className="text-xl font-bold text-foreground">SourceForge 加速器</h1>
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
-            <nav className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-                功能特性
-              </a>
-              <a href="#usage" className="text-muted-foreground hover:text-foreground transition-colors">
-                使用方法
-              </a>
-              <a href="#stats" className="text-muted-foreground hover:text-foreground transition-colors">
-                性能统计
-              </a>
-              <Link href="/dashboard">
-                <Button variant="outline" size="sm">
-                  <BarChart3 className="w-4 h-4 mr-2" />
-                  监控面板
-                </Button>
-              </Link>
-            </nav>
+            <span className="font-semibold text-foreground text-lg">SourceForge 加速器</span>
           </div>
         </div>
       </header>
@@ -55,7 +35,7 @@ export default function HomePage() {
             开发者的加速利器
           </h1>
           <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
-            通过 CloudFlare Workers 全球网络，为中国开发者提供 SourceForge 的高速访问体验。 告别缓慢下载，享受极速开发。
+            通过 CloudFlare Workers 全球网络，为中国开发者提供 SourceForge 的高速访问体验。告别缓慢下载，享受极速开发。
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -66,12 +46,6 @@ export default function HomePage() {
               立即开始使用
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Link href="/dashboard">
-              <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent w-full sm:w-auto">
-                <BarChart3 className="w-5 h-5 mr-2" />
-                查看监控面板
-              </Button>
-            </Link>
           </div>
         </div>
       </section>
@@ -83,7 +57,6 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold text-foreground mb-4">URL 转换工具</h2>
             <p className="text-muted-foreground text-lg">将 SourceForge 链接转换为加速链接，享受高速下载体验</p>
           </div>
-
           <UrlConverter />
         </div>
       </section>
@@ -92,125 +65,48 @@ export default function HomePage() {
       <section id="features" className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">核心优势</h2>
-            <p className="text-muted-foreground text-lg">
-              基于 CloudFlare Workers 的全球加速网络，为您提供极致的访问体验
-            </p>
+            <h2 className="text-3xl font-bold text-foreground mb-4">功能特性</h2>
+            <p className="text-muted-foreground text-lg">专为中国开发者设计，极速、安全、稳定</p>
           </div>
-
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center">
-              <CardHeader>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Zap className="w-6 h-6 text-primary" />
-                </div>
-                <CardTitle>极速加载</CardTitle>
-                <CardDescription>通过 CloudFlare 边缘网络，下载速度提升 5-10 倍</CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Globe className="w-6 h-6 text-accent" />
-                </div>
-                <CardTitle>全球覆盖</CardTitle>
-                <CardDescription>覆盖全球 200+ 城市的 CDN 节点，就近访问最优节点</CardDescription>
-              </CardHeader>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <div className="w-12 h-12 bg-chart-3/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Shield className="w-6 h-6 text-chart-3" />
-                </div>
-                <CardTitle>安全可靠</CardTitle>
-                <CardDescription>企业级安全防护，SSL 加密传输，保障下载安全</CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section id="stats" className="py-16 px-4 bg-card/30">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">实时性能数据</h2>
-            <p className="text-muted-foreground text-lg">透明的性能指标，让您了解加速效果</p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-6">
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-3xl font-bold text-primary mb-2">99.9%</div>
-                <div className="text-sm text-muted-foreground">服务可用性</div>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-3xl font-bold text-accent mb-2">156ms</div>
-                <div className="text-sm text-muted-foreground">平均响应时间</div>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-3xl font-bold text-chart-3 mb-2">8.5x</div>
-                <div className="text-sm text-muted-foreground">平均加速倍数</div>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <div className="text-3xl font-bold text-foreground mb-2">50TB</div>
-                <div className="text-sm text-muted-foreground">月流量处理</div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center mt-8">
-            <Link href="/dashboard">
-              <Button size="lg" variant="outline">
-                <BarChart3 className="w-5 h-5 mr-2" />
-                查看详细监控数据
-              </Button>
-            </Link>
+            <div className="bg-card rounded-lg p-6 shadow text-center">
+              <h3 className="font-bold text-lg mb-2">🚀 高速访问</h3>
+              <p className="text-muted-foreground">通过 CloudFlare 边缘网络加速 SourceForge 资源访问</p>
+            </div>
+            <div className="bg-card rounded-lg p-6 shadow text-center">
+              <h3 className="font-bold text-lg mb-2">🌍 多镜像支持</h3>
+              <p className="text-muted-foreground">支持多个 SourceForge 镜像站选择</p>
+            </div>
+            <div className="bg-card rounded-lg p-6 shadow text-center">
+              <h3 className="font-bold text-lg mb-2">🎨 现代界面</h3>
+              <p className="text-muted-foreground">基于 shadcn/ui 的精美用户界面，响应式设计</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="border-t border-border py-12 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-primary rounded flex items-center justify-center">
-                <Zap className="w-4 h-4 text-primary-foreground" />
-              </div>
-              <span className="font-semibold text-foreground">SourceForge 加速器</span>
+        <div className="container mx-auto max-w-4xl flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-primary rounded flex items-center justify-center">
+              <Zap className="w-4 h-4 text-primary-foreground" />
             </div>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <a href="#" className="hover:text-foreground transition-colors">
-                使用条款
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                隐私政策
-              </a>
-              <a href="#" className="hover:text-foreground transition-colors">
-                技术支持
-              </a>
-              <Link href="/dashboard" className="hover:text-foreground transition-colors">
-                监控面板
-              </Link>
-            </div>
+            <span className="font-semibold text-foreground">SourceForge 加速器</span>
           </div>
-          <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            <p>基于 CloudFlare Workers 构建 • 为中国开发者优化 • 开源项目</p>
+          <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <a href="#" className="hover:text-foreground transition-colors">
+              使用条款
+            </a>
+            <a href="#" className="hover:text-foreground transition-colors">
+              隐私政策
+            </a>
+            <a href="https://github.com/Zysord/sf-mirror-frontend" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              GitHub
+            </a>
           </div>
         </div>
       </footer>
-    </div>
+    </main>
   )
 }
