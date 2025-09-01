@@ -98,42 +98,26 @@ export function UrlConverter() {
 
       let convertedUrl = ""
 
-      if (selectedMirror === "cloudflare") {
-        if (url.pathname.includes("/projects/") && url.pathname.includes("/files/")) {
-          // Extract the full path after /projects/
-          const pathMatch = url.pathname.match(/\/projects\/(.+)/)
-          if (pathMatch) {
-            const projectPath = pathMatch[1]
-            // Remove trailing /download if exists, then add it back
-            const cleanPath = projectPath.replace(/\/download$/, "")
-            convertedUrl = `https://${selectedMirrorSite.domain}/projects/${cleanPath}/download`
-          }
+      // 所有镜像统一转换逻辑
+      let mirrorPath = ""
+
+      if (url.pathname.includes("/projects/") && url.pathname.includes("/files/")) {
+        // Extract project name and file path
+        const pathMatch = url.pathname.match(/\/projects\/([^/]+)\/files\/(.+?)(?:\/download)?$/)
+        if (pathMatch) {
+          const [, projectName, filePath] = pathMatch
+          mirrorPath = `/project/${projectName}/${filePath}`
         }
-      } else {
-        // Convert SourceForge URL to mirror URL
-        // From: https://sourceforge.net/projects/PROJECT/files/PATH/FILE/download
-        // To: https://MIRROR.dl.sourceforge.net/project/PROJECT/PATH/FILE?viasf=1
-
-        let mirrorPath = ""
-
-        if (url.pathname.includes("/projects/") && url.pathname.includes("/files/")) {
-          // Extract project name and file path
-          const pathMatch = url.pathname.match(/\/projects\/([^/]+)\/files\/(.+?)(?:\/download)?$/)
-          if (pathMatch) {
-            const [, projectName, filePath] = pathMatch
-            mirrorPath = `/project/${projectName}/${filePath}`
-          }
-        } else if (url.hostname.includes("downloads.sourceforge.net") && url.pathname.startsWith("/project/")) {
-          // Already in project format
-          mirrorPath = url.pathname
-        }
-
-        if (!mirrorPath) {
-          throw new Error("无法解析URL格式")
-        }
-
-        convertedUrl = `https://${selectedMirrorSite.domain}${mirrorPath}?viasf=1`
+      } else if (url.hostname.includes("downloads.sourceforge.net") && url.pathname.startsWith("/project/")) {
+        // Already in project format
+        mirrorPath = url.pathname
       }
+
+      if (!mirrorPath) {
+        throw new Error("无法解析URL格式")
+      }
+
+      convertedUrl = `https://${selectedMirrorSite.domain}${mirrorPath}?viasf=1`
 
       if (!convertedUrl) {
         throw new Error("无法生成镜像链接")
